@@ -1,0 +1,10 @@
+package org.serratec.java2.backend.exercicio03.domain;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Cliente {
+	
+	
+
+}

@@ -1,0 +1,9 @@
+package org.serratec.java2backend.exercicio02.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ProdutoRepository<Produto, Long> extends JpaRepository {
+//Interface que extends outra interface
+}

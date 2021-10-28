@@ -1,0 +1,3 @@
+spring.datasource.url=jdbc:postgresql://localhost:8080/aula
+spring.datasource.username=postgres
+spring.datasource.password=pgAdmin

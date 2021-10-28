@@ -1,0 +1,5 @@
+package org.serratec.backend.projeto01;
+
+public class HelloWorldController {
+
+}

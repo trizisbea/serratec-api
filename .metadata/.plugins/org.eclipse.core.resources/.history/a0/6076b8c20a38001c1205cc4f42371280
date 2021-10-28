@@ -1,0 +1,14 @@
+package org.serratec.java2.backend.exercicio03.domain;
+
+import javax.persistence.Entity;
+import javax.persistence.GenerationType;
+
+@Entity
+public class Cliente {
+	
+	@Id
+	@GenerateValue(strategy = GenerationType.IDENTITY)
+	
+	
+
+}

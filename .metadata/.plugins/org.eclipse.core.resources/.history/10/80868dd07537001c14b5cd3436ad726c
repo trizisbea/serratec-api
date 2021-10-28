@@ -1,0 +1,5 @@
+package org.serratec.java2backend.exercicio02.domain;
+
+public class Produto {
+
+}

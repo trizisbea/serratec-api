@@ -1,0 +1,5 @@
+package org.serratec.backend.exercicio02.controller;
+
+public class AlunoController {
+
+}

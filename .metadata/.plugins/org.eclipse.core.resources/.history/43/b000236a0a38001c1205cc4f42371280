@@ -1,0 +1,8 @@
+package org.serratec.java2.backend.exercicio03.domain;
+
+@Entity
+public class Cliente {
+	
+	
+
+}
