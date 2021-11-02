@@ -1,12 +1,13 @@
 package org.serratec.java2.backend.exercicio03.domain;
 
 import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Cliente {
@@ -16,6 +17,8 @@ public class Cliente {
 	@Column(name = "id_cliente")
 	private Long id;
 	
+	@NotBlank //validation - retorna erro 400 
+	@Size(max = 60) //validation da api e não do DB
 	@Column(name = "nome", length = 60)
 	private String nome; 
 	
@@ -68,5 +71,4 @@ public class Cliente {
 		this.dataNascimento = dataNascimento;
 	} 
 	
-
 }

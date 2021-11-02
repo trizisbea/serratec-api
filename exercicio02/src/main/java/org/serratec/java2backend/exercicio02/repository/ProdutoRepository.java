@@ -3,6 +3,7 @@ package org.serratec.java2backend.exercicio02.repository;
 //uma interface que extends outra interface
 
 import org.serratec.java2backend.exercicio02.domain.Produto;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

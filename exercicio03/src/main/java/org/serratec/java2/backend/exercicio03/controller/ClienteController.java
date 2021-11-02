@@ -3,6 +3,8 @@ package org.serratec.java2.backend.exercicio03.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.serratec.java2.backend.exercicio03.domain.Cliente;
 import org.serratec.java2.backend.exercicio03.repositorio.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/clientes")
 public class ClienteController {
 	
-	
+
 	//injeção de dependência 
 	@Autowired
 	private ClienteRepository clienteRepository;  
@@ -47,18 +49,18 @@ public class ClienteController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente inserir(@RequestBody Cliente cliente) {
+	public Cliente inserir(@Valid @RequestBody Cliente cliente) {
 		return clienteRepository.save(cliente);
 	
 }
 	@PutMapping("/{id}")
-	public ResponseEntity<Cliente> atualizar(@RequestBody Cliente produto, @PathVariable Long id) {
+	public ResponseEntity<Cliente> atualizar(@RequestBody Cliente cliente, @PathVariable Long id) {
 		if (!clienteRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
-		produto.setId(id);
-		produto = clienteRepository.save(produto);
-		return ResponseEntity.ok(produto);
+		cliente.setId(id); //se não for setado o id, será criado outro objeto
+		cliente = clienteRepository.save(cliente);
+		return ResponseEntity.ok(cliente);
 	
 }
 	
