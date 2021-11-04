@@ -1,8 +1,6 @@
 package org.serratec.backend.h2banco.controller;
 
-import java.util.Optional;
-
-
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -21,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping("/veiculos")
 public class VeiculoController {
@@ -28,19 +30,43 @@ public class VeiculoController {
 	@Autowired
 	private VeiculoRepository veiculoRepository; 
 	
- 
-	 @GetMapping("/{id}") 
+	@GetMapping
+	@ApiOperation(value = "Retorna todos os veículos cadastrados", notes = "listagem de veículos")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Retorna todos os veículos"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Você não tem permissão para acessar o recurso"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 505, message = "Ocorreu uma exceção"),
+	})
+	
+	public ResponseEntity<List<Veiculo>> listar() {
+		List<Veiculo> listaVeiculo = veiculoRepository.findAll();
+		return ResponseEntity.ok(listaVeiculo);
+	}
+		
+	
+	 /*@GetMapping("/{id}") 
 	public ResponseEntity<Veiculo> pesquisar(@PathVariable Long id) {
 		Optional<Veiculo> veiculo = veiculoRepository.findById(id);
 		if (veiculo.isPresent()) {
 			return ResponseEntity.ok(veiculo.get());
 	}
 		return ResponseEntity.notFound().build();
-	 }
+	 }*/
 	 
 	 
 	  @PutMapping("/{id}")
-	public ResponseEntity<Veiculo> atualizar(@Valid @RequestBody Veiculo veiculo, @PathVariable Long id) {
+	  @ApiOperation(value = "Atualiza veículo cadastrado", notes = "atualizar veículos")
+		@ApiResponses(value = {
+				@ApiResponse(code = 200, message = "Veículo atualizado"),
+				@ApiResponse(code = 201, message = "Veículo criado"),
+				@ApiResponse(code = 401, message = "Erro de autenticação"),
+				@ApiResponse(code = 403, message = "Você não tem permissão para acessar o recurso"),
+				@ApiResponse(code = 404, message = "Recurso não encontrado"),
+				@ApiResponse(code = 505, message = "Ocorreu uma exceção"),
+		})
+	  public ResponseEntity<Veiculo> atualizar(@Valid @RequestBody Veiculo veiculo, @PathVariable Long id) {
 		if (!veiculoRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();
 		}
@@ -52,6 +78,14 @@ public class VeiculoController {
 
 	
 	@PostMapping
+	@ApiOperation(value = "Cadastra veículo", notes = "listagem de veículos")
+	@ApiResponses(value = {
+			@ApiResponse(code = 201, message = "Veículo adicionado"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Você não tem permissão para acessar o recurso"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 505, message = "Ocorreu uma exceção"),
+	})
 	@ResponseStatus(HttpStatus.CREATED)
 	public Veiculo inserir(@Valid @RequestBody Veiculo veiculo) {
 		return veiculoRepository.save(veiculo);
@@ -60,6 +94,14 @@ public class VeiculoController {
 	
 	
 	 @DeleteMapping("/{id}")
+	 @ApiOperation(value = "Remove veículo cadastrado", notes = "remover veículo")
+		@ApiResponses(value = {
+				@ApiResponse(code = 200, message = "Veículo removido"),
+				@ApiResponse(code = 401, message = "Erro de autenticação"),
+				@ApiResponse(code = 403, message = "Você não tem permissão para acessar o recurso"),
+				@ApiResponse(code = 404, message = "Recurso não encontrado"),
+				@ApiResponse(code = 505, message = "Ocorreu uma exceção"),
+		})
 	public ResponseEntity<Void> remover(@PathVariable Long id) {
 		if (!veiculoRepository.existsById(id)) {
 			return ResponseEntity.notFound().build();

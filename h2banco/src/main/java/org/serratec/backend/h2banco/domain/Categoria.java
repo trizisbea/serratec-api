@@ -7,7 +7,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 public enum Categoria {
 	
 	HATCH, SEDAN, PICAPE, SUV, CONVERSIVEL, MINIVAN;
+	//criação de ENUM para facilitar a validação
 	
+	
+	//Exception ENUM
 	@JsonCreator
 	public static Categoria verifica(String value) throws EnumValidationException {
 		for (Categoria c : values()) {

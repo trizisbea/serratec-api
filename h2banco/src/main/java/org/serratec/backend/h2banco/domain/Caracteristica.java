@@ -5,13 +5,17 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 @Embeddable
+//essa classe pode ser incoporada por outra classe
+//não cria uma nova tabela
 public class Caracteristica {
 	
 	private String renavam;
 	private String chassi;
 	private Long ano;
 	
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING) 
+	//mapeamento de enum exige o @Enumerated
+	//salvar o dado como certo tipo 
 	private Categoria categoria; 
 	
 	private String cor; 

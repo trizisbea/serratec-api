@@ -1,6 +1,7 @@
 package org.serratec.backend.h2banco.controller;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import org.serratec.backend.h2banco.domain.Proprietario;
@@ -25,31 +26,39 @@ public class ProprietarioController {
 
 	@Autowired
 	private ProprietarioRepository proprietarioRepository;
-
 	
-	/*@PostMapping
+	@GetMapping
+	public ResponseEntity<List<Proprietario>> listar() {
+		List<Proprietario> listaVeiculo = proprietarioRepository.findAll();
+		return ResponseEntity.ok(listaVeiculo);
+	}	
+
+	/*@GetMapping("/id")
+	public ResponseEntity<Proprietario> pesquisarUm(@PathVariable Long id) {
+		Optional <Proprietario> Proprietario = proprietarioService.pesquisarUm(id); 
+		if (Proprietario.isPresent() ) {
+		return ResponseEntity.ok(Proprietario.get()); 	
+		}
+		return ResponseEntity.notFound().build(); 
+	}*/
+	
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Proprietario inserir(@RequestBody Proprietario proprietario) {
 	return proprietarioRepository.save(proprietario);
 	
 }
+	//retornará uma lista
+	//http://localhost:8080/proprietarios/lista
 	
-	/*@PostMapping("/lista")
+	@PostMapping("/lista")
 	@ResponseStatus(HttpStatus.CREATED)
 	public List<Proprietario> inserirVarios(@RequestBody List<Proprietario> proprietarios) {
-	return proprietarioRepository.save(proprietarios);
+	return proprietarioRepository.saveAll(proprietarios);
 	
 }
 	
-	 @GetMapping
-		public ResponseEntity<Proprietario> pesquisar(@PathVariable Long id) {
-			Optional<Proprietario> veiculo = proprietarioRepository.findById(id);
-			if (proprietario.isPresent()) {
-				return ResponseEntity.ok(proprietario.get());
-		}
-			return ResponseEntity.notFound().build();
-		 }
-	
-*/
+	 
+
 }
 

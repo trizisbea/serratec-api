@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 public enum Combustivel {
 	
 	ALCOOL(1, "Álcool"), GASOLINA(2, "Gasolina"), DIESEL(3, "Diesel"), FLEX(4, "Flex"); 
+	//chave e valor
+	//criação de ENUM para facilitar a validação
 
 	private Integer codigo; 
 	private String tipo;
@@ -25,16 +27,15 @@ public enum Combustivel {
 		return tipo;
 	}
 	
+	//Exception ENUM
 	@JsonCreator
-	public static Combustivel verfica(Integer value) throws EnumValidationException{
-		for(Combustivel c : values() ) {
-			if(value.equals(c.getCodigo())) {
-				return c; 
-				
+	public static Combustivel verifica(Integer value) throws EnumValidationException {
+		for (Combustivel c : values()) {
+			if (value.equals(c.getCodigo())) {
+				return c;
 			}
 		}
-		throw new EnumValidationException("Combustível preenchido incorretamente"); 
+		throw new EnumValidationException("Combustível Preenchido incorretamente");
 	}
-
 		
 }
