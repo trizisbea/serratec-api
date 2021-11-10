@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 public class Pedido {
@@ -22,10 +26,14 @@ public class Pedido {
 	@Column(name = "id_pedido")
 	private Long idPedido;
 
-	@Column(name = "data_pedido", length = 50)
+	@NotBlank(message = "Preencha a data do pedido")
+	@ApiModelProperty(value = "Data do pedido", required = true)
+	@Column(name = "data_pedido")
 	@Temporal(TemporalType.DATE)
 	private Date dataPedido;
 	
+	@Size(max = 50)
+	@ApiModelProperty(value = "Nome do funcionário")
 	@Column(name = "status_finalizado")
 	private Boolean statusFinalizado; 
 	

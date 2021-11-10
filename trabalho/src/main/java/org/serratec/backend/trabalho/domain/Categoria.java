@@ -8,6 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 public class Categoria {
@@ -17,9 +21,14 @@ public class Categoria {
 	@Column(name = "id_categoria")
 	private Long idCategoria;
 	
+	@NotBlank(message = "Preencha o nome da categoria")
+	@Size(max = 50)
+	@ApiModelProperty(value = "Nome da categoria", required = true)
 	@Column(name = "nome_categoria", length = 50)
 	private String nomeCategoria;
 	
+	@Size(max = 100)
+	@ApiModelProperty(value = "Descrição da categoria")
 	@Column(name = "descricao_categoria", length = 100)
 	private String descricaoCategoria;
 	

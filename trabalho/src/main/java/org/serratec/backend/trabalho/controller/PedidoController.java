@@ -51,7 +51,15 @@ public class PedidoController {
 		return ResponseEntity.ok(pedidoService.pesquisarTodos());
 	}
 	
-	@GetMapping("/{id}") 
+	@GetMapping("/{id}")
+	@ApiOperation(value = "Retorna pedido cadastrado por id", notes = "pedido por número")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Retorna todos os pedidos"),
+			@ApiResponse(code = 401, message = "Erro de autenticação"),
+			@ApiResponse(code = 403, message = "Você não tem permissão para acessar o recurso"),
+			@ApiResponse(code = 404, message = "Recurso não encontrado"),
+			@ApiResponse(code = 505, message = "Ocorreu uma exceção"),
+	})
 	public ResponseEntity<Pedido> pesquisarUm(@PathVariable Long id) {
 		Optional<Pedido> pedido = pedidoRepository.findById(id);
 		
@@ -80,7 +88,7 @@ public class PedidoController {
 	
 	
 	@PutMapping("/{id}")
-	 @ApiOperation(value = "Atualiza pedido cadastrado", notes = "atualizar pedidos")
+	 @ApiOperation(value = "Atualiza pedido cadastrado", notes = "atualizar pedido por id")
 		@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Pedido atualizado"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),

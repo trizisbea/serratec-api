@@ -8,8 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
+
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 public class Funcionario {
@@ -19,11 +23,16 @@ public class Funcionario {
 	@Column(name = "id_funcionario")
 	private Long idFuncionario;
 	
+	@Size(max = 50)
+	@ApiModelProperty(value = "Nome do funcionário")
 	@Column(name = "nome_funcionario", length = 50)
 	private String nomeFuncionario;
 	
+	@NotBlank(message = "Preencha o cpf")
+	@Size(max = 11)
+	@ApiModelProperty(value = "CPF", required = true)
 	@CPF
-	@Column(name = "cpf_funcinario", length = 50)
+	@Column(name = "cpf_funcinario", length = 11)
 	private String cpfFuncionario;
 	
 	@OneToMany 

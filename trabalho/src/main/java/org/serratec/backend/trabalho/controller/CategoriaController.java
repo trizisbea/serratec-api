@@ -51,9 +51,9 @@ public class CategoriaController {
 	}
 	
 	@PostMapping
-	@ApiOperation(value = "Cadastra categoria", notes = "listagem de categorias")
+	@ApiOperation(value = "Cadastra categoria", notes = "cadastro de categoria")
 	@ApiResponses(value = {
-			@ApiResponse(code = 201, message = "Categorias adicionada"),
+			@ApiResponse(code = 201, message = "Categoria adicionada"),
 			@ApiResponse(code = 401, message = "Erro de autenticação"),
 			@ApiResponse(code = 403, message = "Você não tem permissão para acessar o recurso"),
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
@@ -67,7 +67,7 @@ public class CategoriaController {
 	@PutMapping("/{id}")
 	@ApiOperation(value = "Atualiza categoria cadastrada", notes = "atualizar categorias")
 	@ApiResponses(value = {
-		@ApiResponse(code = 200, message = "Categoria atualizado"),
+		@ApiResponse(code = 200, message = "Categoria atualizada"),
 		@ApiResponse(code = 401, message = "Erro de autenticação"),
 		@ApiResponse(code = 403, message = "Você não tem permissão para acessar o recurso"),
 		@ApiResponse(code = 404, message = "Recurso não encontrado"),

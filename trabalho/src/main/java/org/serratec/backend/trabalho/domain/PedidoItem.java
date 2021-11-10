@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 public class PedidoItem {
@@ -17,7 +21,10 @@ public class PedidoItem {
 	@Column(name = "id_pedido_item")
 	private Long idPedidoItem;
 	
-	@Column(name = "quantidade_item", length = 50)
+	@NotBlank(message = "Preencha a quantidade do item")
+	@Size(max = 10)
+	@ApiModelProperty(value = "Nome do funcionário", required = true)
+	@Column(name = "quantidade_item", length = 10)
 	private String quantidadeItem;
 	
 	@OneToOne

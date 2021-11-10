@@ -52,6 +52,14 @@ import io.swagger.annotations.ApiResponses;
 		}
 		
 		@GetMapping("/{id}")
+		@ApiOperation(value = "Retorna produto cadastrado", notes = "retorna produto por id")
+		@ApiResponses(value = {
+				@ApiResponse(code = 200, message = "Retorna produto"),
+				@ApiResponse(code = 401, message = "Erro de autenticação"),
+				@ApiResponse(code = 403, message = "Você não tem permissão para acessar o recurso"),
+				@ApiResponse(code = 404, message = "Recurso não encontrado"),
+				@ApiResponse(code = 505, message = "Ocorreu uma exceção"),
+		})
 		public ResponseEntity<Produto> pesquisar(@PathVariable Long id) {
 			Optional<Produto> produto = produtoService.pesquisarUm(id);
 			if (produto.isPresent()) {
@@ -91,15 +99,6 @@ import io.swagger.annotations.ApiResponses;
 			return ResponseEntity.ok(produto);
 		}
 		
-		
-		@DeleteMapping("/{id}")
-		public ResponseEntity<Void> remover(@PathVariable Long id) {
-			if (!produtoService.idExiste(id)) {
-				return ResponseEntity.notFound().build();
-			}
-			produtoService.remover(id); 
-			return ResponseEntity.noContent().build();
-			
-		}
+	
 
 }

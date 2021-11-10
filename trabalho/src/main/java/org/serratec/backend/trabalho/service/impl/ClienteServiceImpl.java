@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.serratec.backend.trabalho.config.MailConfig;
 import org.serratec.backend.trabalho.domain.Cliente;
 import org.serratec.backend.trabalho.dto.ClienteDTO;
 import org.serratec.backend.trabalho.repository.ClienteRepository;
@@ -16,6 +17,9 @@ public class ClienteServiceImpl implements ClienteService {
 	
 	 @Autowired
 	 private ClienteRepository clienteRepository;
+	 
+	 @Autowired
+	 private MailConfig mailConfig;
 	 
 	 	@Override
 	    public List<ClienteDTO> pesquisarTodos() {
@@ -39,6 +43,7 @@ public class ClienteServiceImpl implements ClienteService {
 
 	    @Override
 	    public Cliente inserir(Cliente cliente) {
+	    	mailConfig.enviarEmail(cliente.getEmailCliente(), "Cadastro/atualização concluído com sucesso", cliente.toString());
 	        return clienteRepository.save(cliente);
 	    }
 	    
