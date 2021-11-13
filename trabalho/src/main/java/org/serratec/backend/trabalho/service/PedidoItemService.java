@@ -1,5 +1,6 @@
 package org.serratec.backend.trabalho.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,5 +12,8 @@ public interface PedidoItemService {
     PedidoItem inserir(PedidoItem pedidoItem);
     boolean idExiste(Long idPedidoItem);
     void remover(Long idPedidoItem);
+    
+    //public Long sumQuantities();
+    //public BigDecimal total(Long idPedido);
 
 }

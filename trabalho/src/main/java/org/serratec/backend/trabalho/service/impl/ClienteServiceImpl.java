@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.serratec.backend.trabalho.config.MailConfig;
 import org.serratec.backend.trabalho.domain.Cliente;
 import org.serratec.backend.trabalho.dto.ClienteDTO;
+import org.serratec.backend.trabalho.exception.EmailException;
 import org.serratec.backend.trabalho.repository.ClienteRepository;
 import org.serratec.backend.trabalho.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class ClienteServiceImpl implements ClienteService {
 	 @Autowired
 	 private MailConfig mailConfig;
 	 
+	 
 	 	@Override
 	    public List<ClienteDTO> pesquisarTodos() {
 	 		List<Cliente> clientes = clienteRepository.findAll();
@@ -33,20 +35,38 @@ public class ClienteServiceImpl implements ClienteService {
 	        return clientesDTO;
 	    }
 	 	
-	 	//método de setar o endereco a partir do cep
 	 	
 	 
 	    @Override
 	    public Optional<Cliente> pesquisarUm(Long idCliente) {
 	        return clienteRepository.findById(idCliente);
 	    }
-
+	  
+	    
 	    @Override
+	    public Cliente inserir(Cliente cliente) {
+			Cliente usuarioBanco = clienteRepository.findByEmailCliente(cliente.getEmailCliente());
+			if (usuarioBanco != null) {
+				throw new EmailException("Email já existente"); 
+
+			}
+			Cliente usuario = new Cliente();
+			usuario.setNomeCliente(cliente.getNomeCliente()); 
+			usuario.setEmailCliente(cliente.getEmailCliente());
+			//clienteRepository.save(usuario);  
+			
+			mailConfig.enviarEmail(cliente.getEmailCliente(), "Cadastro concluído com sucesso", cliente.toString());
+			return clienteRepository.save(cliente);
+			
+		}
+	    
+	    
+	    /*@Override
 	    public Cliente inserir(Cliente cliente) {
 	    	mailConfig.enviarEmail(cliente.getEmailCliente(), "Cadastro/atualização concluído com sucesso", cliente.toString());
 	        return clienteRepository.save(cliente);
-	    }
-	    
+	    }*/
+	      
 
 	    @Override
 	    public boolean idExiste(Long idCliente) {
@@ -60,12 +80,17 @@ public class ClienteServiceImpl implements ClienteService {
 
 	    
 	    @Override
-        public ClienteDTO atualizar(Long id,Cliente cliente) {
+        public Cliente atualizar(Long id, Cliente cliente) {
             cliente.setIdCliente(id);
-            clienteRepository.save(cliente);
-            ClienteDTO cDto = new ClienteDTO(cliente);
-            return cDto;
-	    }
+            Optional<Cliente> c = pesquisarUm(id);
+            c.get().setNomeCliente(cliente.getNomeCliente());
+            c.get().setUsuarioCliente(cliente.getUsuarioCliente());
+            c.get().setSenha(cliente.getSenha());
+            clienteRepository.save(c.get());
+
+            mailConfig.enviarEmail(cliente.getEmailCliente(), "Cadastro atualizado com sucesso", cliente.toString());
+            return cliente;
+        }
 
 		 	    
 }

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CategoriaServiceImpl implements CategoriaService{
-	
-	@Autowired
+
+    @Autowired
     private CategoriaRepository categoriaRepository;
 
     @Override
@@ -38,13 +38,12 @@ public class CategoriaServiceImpl implements CategoriaService{
 
     @Override
     public void remover(Long idCategoria) {
-    	categoriaRepository.deleteById(idCategoria);
+        categoriaRepository.deleteById(idCategoria);
     }
-    
-	@Override
-	public Categoria editar(Categoria categoria) {
-		return categoriaRepository.save(categoria);
-	}
 
-	
+    @Override
+    public Categoria editar(Categoria categoria) {
+        return categoriaRepository.save(categoria);
+   }
+ 
 }

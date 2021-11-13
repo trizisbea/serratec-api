@@ -8,15 +8,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
+@Table(name = "categoria")
 public class Categoria {
 	
 	@Id
+	@ApiModelProperty(value = "Id da categoria", required = true)
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column(name = "id_categoria")
 	private Long idCategoria;
@@ -32,7 +37,9 @@ public class Categoria {
 	@Column(name = "descricao_categoria", length = 100)
 	private String descricaoCategoria;
 	
-	@OneToMany
+	@ApiModelProperty(value = "Lista de produtos")
+	@OneToMany(mappedBy = "categoria")
+	@JsonIgnore
 	private List<Produto> produto;
 
 	public Long getIdCategoria() {

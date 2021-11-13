@@ -1,42 +1,59 @@
 package org.serratec.backend.trabalho.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.serratec.backend.trabalho.domain.PedidoItem;
 import org.serratec.backend.trabalho.repository.PedidoItemRepository;
 import org.serratec.backend.trabalho.service.PedidoItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+@Transactional
 public class PedidoItemServiceImpl implements PedidoItemService {
-	
-	 @Autowired
-	    private PedidoItemRepository pedidoItemRepository;
 
-	    @Override
-	    public List<PedidoItem> pesquisarTodos() {
-	        return pedidoItemRepository.findAll();
-	    }
+     @Autowired
+        private PedidoItemRepository pedidoItemRepository;
 
-	    @Override
-	    public Optional<PedidoItem> pesquisarUm(Long idPedidoItem) {
-	        return pedidoItemRepository.findById(idPedidoItem);
-	    }
+        @Override
+        public List<PedidoItem> pesquisarTodos() {
+            return pedidoItemRepository.findAll();
+        }
 
-	    @Override
-	    public PedidoItem inserir(PedidoItem produto) {
-	        return pedidoItemRepository.save(produto);
-	    }
+        @Override
+        public Optional<PedidoItem> pesquisarUm(Long idPedidoItem) {
+            return pedidoItemRepository.findById(idPedidoItem);
+        }
 
-	    @Override
-	    public boolean idExiste(Long idPedidoItem) {
-	        return pedidoItemRepository.existsById(idPedidoItem);
-	    }
+        @Override
+        public PedidoItem inserir(PedidoItem produto) {
+            return pedidoItemRepository.save(produto);
+        }
 
-	    @Override
-	    public void remover(Long idPedidoItem) {
-	    	pedidoItemRepository.deleteById(idPedidoItem);
-	    }
+		@Override
+		public boolean idExiste(Long idPedidoItem) {
+			// TODO Auto-generated method stub
+			return false;
+		}
 
+		@Override
+		public void remover(Long idPedidoItem) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		/*@Override
+		public Long sumQuantities() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public BigDecimal total(Long idPedido) {
+			// TODO Auto-generated method stub
+			return null;
+		}*/
 
 }

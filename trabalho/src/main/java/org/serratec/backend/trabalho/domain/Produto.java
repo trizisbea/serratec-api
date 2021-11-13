@@ -10,15 +10,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import io.swagger.annotations.ApiModelProperty;
 
+@Table(name = "produto")
 @Entity
 public class Produto {
 	
 	@Id
+	@ApiModelProperty(value = "Id do produto", required = true)
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column(name = "id_produto")
 	private Long idProduto;
@@ -34,26 +38,26 @@ public class Produto {
 	@Column(name = "descricao_produto")
 	private String descricaoProduto;
 	
-	@NotBlank(message = "Preencha a quantidade do estoque")
-	@Size(max = 10)
-	@ApiModelProperty(value = "Quantidade do estoque", required = true)
+	@ApiModelProperty(value = "Quantidade do estoque")
 	@Column(name = "estoque")
 	private int estoque;
-	
-	@NotBlank(message = "Preencha o valor do produto")
-	@Size(max = 10)
-	@ApiModelProperty(value = "Valor do produto", required = true)
-	@Column(name = "valor")
-	private BigDecimal valor;
 
+	@DecimalMin(value = "0.10", message = "O valor não pode ser menor que dez centavos")
+	@ApiModelProperty(value = "Valor do produto")
+	@DecimalMin(value = "0")
+	@Column(name = "valor")
+	private Double valor;
+
+	@ApiModelProperty(value = "Categoria do produto")
 	@ManyToOne
 	@JoinColumn(name = "categoria_produto")
 	private Categoria categoria; 
 	
+	@ApiModelProperty(value = "Nome do funcionário que inseriu o produto")
 	@ManyToOne
 	@JoinColumn(name = "inserido_por")
 	private Funcionario funcionario;
-
+	
 
 	public Long getIdProduto() {
 		return idProduto;
@@ -87,11 +91,12 @@ public class Produto {
 		this.estoque = estoque;
 	}
 
-	public BigDecimal getValor() {
+
+	public Double getValor() {
 		return valor;
 	}
 
-	public void setValor(BigDecimal valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 

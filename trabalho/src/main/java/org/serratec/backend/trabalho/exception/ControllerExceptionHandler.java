@@ -2,8 +2,10 @@ package org.serratec.backend.trabalho.exception;
 
 import java.time.LocalDateTime;
 
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -38,5 +41,12 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
 		return super.handleExceptionInternal(ex, null, headers, status, request);
 	}
+	
+
+	/*@ExceptionHandler(EmailException.class)
+	protected ResponseEntity<Object> handleEmailException(EmailException ex) {
+	EmailException emailException = new EmailException(ex.getMessage()); 
+	return ResponseEntity.unprocessableEntity().body(emailException);
+	}*/
 }
 

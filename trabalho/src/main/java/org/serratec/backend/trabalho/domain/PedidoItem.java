@@ -1,71 +1,52 @@
 package org.serratec.backend.trabalho.domain;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import io.swagger.annotations.ApiModelProperty;
 
 @Entity
+@Table(name = "pedido_item")
 public class PedidoItem {
 	
-	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column(name = "id_pedido_item")
-	private Long idPedidoItem;
+	@EmbeddedId
+	private PedidoItemPK idPK = new PedidoItemPK(); 
+	//id_pedido e id_produto
 	
 	@NotBlank(message = "Preencha a quantidade do item")
-	@Size(max = 10)
-	@ApiModelProperty(value = "Nome do funcionário", required = true)
-	@Column(name = "quantidade_item", length = 10)
-	private String quantidadeItem;
+	@DecimalMin(value = "1")
+	@ApiModelProperty(value = "Quantidade de itens", required = true)
+	@Column(name = "quantidade_item")
+	private int quantidadeItem;
 	
-	@OneToOne
-	@JoinColumn(name = "item")
-	private Produto produto;
 	
-	@ManyToOne
-	@JoinColumn (name = "item_pedido")
-	private PedidoItem pedidoItem;
-
-	public Long getIdPedidoItem() {
-		return idPedidoItem;
+	public PedidoItem(PedidoItemPK pk, int quantidadeItem) {
+		super();
+		this.quantidadeItem = quantidadeItem;
+		this.idPK = new PedidoItemPK(pk.getPedido(), pk.getProduto());
 	}
 
-	public void setIdPedidoItem(Long idPedidoItem) {
-		this.idPedidoItem = idPedidoItem;
-	}
-
-	public String getQuantidadeItem() {
+	public int getQuantidadeItem() {
 		return quantidadeItem;
 	}
 
-	public void setQuantidadeItem(String quantidadeItem) {
+	public void setQuantidadeItem(int quantidadeItem) {
 		this.quantidadeItem = quantidadeItem;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public PedidoItemPK getIdPK() {
+		return idPK;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setIdPK(PedidoItemPK idPK) {
+		this.idPK = idPK;
 	}
 
-	public PedidoItem getPedidoItem() {
-		return pedidoItem;
-	}
-
-	public void setPedidoItem(PedidoItem pedidoItem) {
-		this.pedidoItem = pedidoItem;
-	}
-
-	
 }

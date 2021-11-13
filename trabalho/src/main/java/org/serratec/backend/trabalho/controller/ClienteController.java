@@ -96,24 +96,22 @@ public class ClienteController {
     }
 	
 	
-	
 	@PutMapping("/{id}")
-	@ApiOperation(value = "Atualiza cliente cadastrado", notes = "atualizar clientes por id")
-	@ApiResponses(value = {
-		@ApiResponse(code = 200, message = "Cliente atualizado"),
-		@ApiResponse(code = 401, message = "Erro de autenticação"),
-		@ApiResponse(code = 403, message = "Você não tem permissão para acessar o recurso"),
-		@ApiResponse(code = 404, message = "Recurso não encontrado"),
-		@ApiResponse(code = 505, message = "Ocorreu uma exceção"),
-})
+    @ApiOperation(value = "Atualiza cliente cadastrado", notes = "atualizar clientes por id")
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Cliente atualizado"),
+        @ApiResponse(code = 401, message = "Erro de autenticação"),
+        @ApiResponse(code = 403, message = "Você não tem permissão para acessar o recurso"),
+        @ApiResponse(code = 404, message = "Recurso não encontrado"),
+        @ApiResponse(code = 505, message = "Ocorreu uma exceção"),
+    })
     public ResponseEntity<ClienteDTO> editar(@Valid @RequestBody Cliente cliente, @PathVariable Long id) {
         if (!clienteService.idExiste(id)) {
             return ResponseEntity.notFound().build();
         }
         cliente.setIdCliente(id);
-        cliente = clienteService.inserir(cliente);
+        cliente = clienteService.atualizar(id, cliente);
         ClienteDTO cDto = new ClienteDTO(cliente);
         return ResponseEntity.ok(cDto);
-    }
-
+}
 }

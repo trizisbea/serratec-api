@@ -9,39 +9,46 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Table
+import io.swagger.annotations.ApiModelProperty;
+
+@Table(name = "endereco")
 @Entity
 public class Endereco {
 	
 	@Id
+	@ApiModelProperty(value = "Id do endereço", required = true)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_endereco")
 	private Long idEndereco;
 	
 	@Column
+	@ApiModelProperty(value = "CEP", required = true)
 	private String cep;
 	
 	@Column
+	@ApiModelProperty(value = "Logradouro")
 	private String logradouro;
 	
 	@Column
+	@ApiModelProperty(value = "Complemento")
 	private String complemento;
 	
 	@Column
+	@ApiModelProperty(value = "Bairro")
 	private String bairro;
 	
 	@Column
+	@ApiModelProperty(value = "Localidade")
 	private String localidade;
 	
 	@Column
+	@ApiModelProperty(value = "UF")
 	private String uf;
 	
 	@Column
+	@ApiModelProperty(value = "IBGE")
 	private Long ibge;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_cliente")
-	private Cliente cliente;
 	
 	public Endereco() {
 		super();

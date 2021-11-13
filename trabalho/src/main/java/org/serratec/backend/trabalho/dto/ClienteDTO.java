@@ -2,20 +2,40 @@ package org.serratec.backend.trabalho.dto;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+
 import org.serratec.backend.trabalho.domain.Cliente;
-import org.serratec.backend.trabalho.domain.Endereco;
 import org.springframework.stereotype.Component;
+
+import io.swagger.annotations.ApiModelProperty;
 
 @Component
 public class ClienteDTO {
 	
-
+	@ApiModelProperty(value = "ID do cliente", required = true)
+	@Column(name = "id_cliente", length = 50)
 	private Long idCliente;
+	
+	@ApiModelProperty(value = "Nome do cliente", required = true)
+	@Column(name = "nome_cliente", length = 50)
 	private String nomeCliente;
+	
+	@ApiModelProperty(value = "Usuário do cliente")
+	@Column(name = "usuario_cliente", length = 50)
 	private String usuarioCliente;
+	
+	@ApiModelProperty(value = "Email do cliente")
+	@Email
+	@Column(name = "email_cliente", length = 50)
 	private String emailCliente;
+	
+	@ApiModelProperty(value = "Data de nascimento do cliente", required = true)
+	@Column(name = "nascimento_cliente")
+	@Temporal(TemporalType.DATE)
 	private Date nascimentoCliente;
-	//private Endereco endereco;
 	
 	
 	public ClienteDTO() {
@@ -59,8 +79,6 @@ public class ClienteDTO {
 	public void setNascimentoCliente(Date nascimentoCliente) {
 		this.nascimentoCliente = nascimentoCliente;
 	}
-
-
 
 	
 }

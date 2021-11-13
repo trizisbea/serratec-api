@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -15,16 +16,18 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import io.swagger.annotations.ApiModelProperty;
 
+@Table(name = "funcionario")
 @Entity
 public class Funcionario {
 	
 	@Id
+	@ApiModelProperty(value = "Id do funcionario", required = true)
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column(name = "id_funcionario")
 	private Long idFuncionario;
 	
 	@Size(max = 50)
-	@ApiModelProperty(value = "Nome do funcionário")
+	@ApiModelProperty(value = "Nome do funcionario")
 	@Column(name = "nome_funcionario", length = 50)
 	private String nomeFuncionario;
 	
@@ -32,10 +35,11 @@ public class Funcionario {
 	@Size(max = 11)
 	@ApiModelProperty(value = "CPF", required = true)
 	@CPF
-	@Column(name = "cpf_funcinario", length = 11)
+	@Column(name = "cpf_funcionario", length = 11)
 	private String cpfFuncionario;
 	
-	@OneToMany 
+	@ApiModelProperty(value = "Lista de produtos")
+	@OneToMany(mappedBy = "funcionario")
 	private List<Produto> produto;
 
 	public Long getIdFuncionario() {

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.serratec.backend.trabalho.domain.Pedido;
 import org.serratec.backend.trabalho.dto.PedidoDTO;
+import org.serratec.backend.trabalho.dto.PedidoRequestDTO;
 import org.serratec.backend.trabalho.repository.PedidoRepository;
 import org.serratec.backend.trabalho.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,6 @@ public class PedidoController {
 	@Autowired
 	private PedidoRepository pedidoRepository; 
 	
-	@Autowired
-	private PedidoDTO pedidoDTO; 
 	
 	@GetMapping
 	@ApiOperation(value = "Retorna todos os pedidos cadastrados", notes = "listagem de pedidos")
@@ -69,7 +68,7 @@ public class PedidoController {
 		return ResponseEntity.notFound().build();		
 
 }
-	
+
 	
 	@PostMapping
 	@ApiOperation(value = "Cadastra pedidos", notes = "listagem de pedidos")
@@ -80,10 +79,10 @@ public class PedidoController {
 			@ApiResponse(code = 404, message = "Recurso não encontrado"),
 			@ApiResponse(code = 505, message = "Ocorreu uma exceção"),
 	})
-	public ResponseEntity<Pedido> inserir(@Valid @RequestBody Pedido pedido, UriComponentsBuilder b) {
+	public ResponseEntity<Pedido> inserir(@Valid @RequestBody PedidoRequestDTO pedido, UriComponentsBuilder b) {
 		Pedido p = pedidoService.inserir(pedido);
 		UriComponents uriComponents = b.path("/pedidos/{id}").buildAndExpand(pedido);
-		return ResponseEntity.created(uriComponents.toUri()).body(pedido);
+		return ResponseEntity.created(uriComponents.toUri()).body(p);
 	}
 	
 	
@@ -101,7 +100,7 @@ public class PedidoController {
             return ResponseEntity.notFound().build();
         }
         pedido.setIdPedido(id);
-        pedido = pedidoService.inserir(pedido);
+        //pedido = pedidoService.inserir(pedido);
         PedidoDTO pDto = new PedidoDTO(pedido);
         return ResponseEntity.ok(pDto);
     }

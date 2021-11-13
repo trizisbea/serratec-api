@@ -28,7 +28,6 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping("/categorias")
 public class CategoriaController {
 	
-	//POST E PUT
 	
 	@Autowired
 	private CategoriaService categoriaService; 
