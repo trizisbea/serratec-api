@@ -34,26 +34,22 @@ public class PedidoItemServiceImpl implements PedidoItemService {
 
 		@Override
 		public boolean idExiste(Long idPedidoItem) {
-			// TODO Auto-generated method stub
-			return false;
+			return true;
 		}
 
 		@Override
 		public void remover(Long idPedidoItem) {
-			// TODO Auto-generated method stub
-			
 		}
 
-		/*@Override
+		@Override
 		public Long sumQuantities() {
-			// TODO Auto-generated method stub
-			return null;
+			return PedidoItemRepository.sumQuantities();
 		}
 
 		@Override
 		public BigDecimal total(Long idPedido) {
-			// TODO Auto-generated method stub
-			return null;
-		}*/
-
+			return PedidoItemRepository.total(idPedido);
+		}
+		
+		
 }

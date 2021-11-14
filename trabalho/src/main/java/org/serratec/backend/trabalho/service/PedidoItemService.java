@@ -13,7 +13,7 @@ public interface PedidoItemService {
     boolean idExiste(Long idPedidoItem);
     void remover(Long idPedidoItem);
     
-    //public Long sumQuantities();
-    //public BigDecimal total(Long idPedido);
+    public Long sumQuantities();
+    public BigDecimal total(Long idPedido);
 
 }

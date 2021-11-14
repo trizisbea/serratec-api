@@ -10,10 +10,14 @@ import org.springframework.stereotype.Repository;
 	@Repository
 	public interface PedidoItemRepository extends JpaRepository<PedidoItem, Long>   {
 
-	    /*@Query(value = "SELECT sum(quantidadeItem) FROM PedidoItem")
-	    public Long sumQuantities();
+	    @Query(value = "SELECT sum(quantidadeItem) FROM PedidoItem")
+	    public static Long sumQuantities() {
+			return null;
+		}
 
 	    @Query(value = "SELECT sum(quantidadeItem * valor) FROM PedidoItem p where p.pedido.idPedido = :idPedido")
-	    public Double total(Long idPedido);*/
+	    public static BigDecimal total(Long idPedido) {
+			return null;
+		}
 
 	}
